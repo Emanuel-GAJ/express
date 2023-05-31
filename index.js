@@ -3,17 +3,20 @@ import { listFiles } from "./files.js";
 
 const server = express();
 
-server.get('/hello', (req,res) => {
-    res.send('Hello World');
-
+// cors
+server.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
 });
 
-server.get('/files', async (req, res) => {
-    const files = await listFiles();
+server.get("/arquivos", async (req, res) => {
+  const files = await listFiles();
 
-    res.json(files);
-})
+  res.json(files);
+});
 
-server.listen(3001, () => {
-    console.log('Server is listening on port 3001');
-})
+server.listen(3000, () => {
+  console.log("Server is listening on port 3000");
+});
